@@ -21,8 +21,10 @@ def init_db():
             email TEXT UNIQUE NOT NULL,
             phone TEXT NOT NULL,
             location TEXT NOT NULL,
-            max_guests INTEGER NOT NULL,
+            max_guests INTEGER NOT NULL DEFAULT 1,
             social_link TEXT,
+            password_hash TEXT NOT NULL DEFAULT '',
+            photos TEXT DEFAULT '[]',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ''')
@@ -34,9 +36,25 @@ def init_db():
             age INTEGER NOT NULL,
             email TEXT UNIQUE NOT NULL,
             phone TEXT NOT NULL,
+            password_hash TEXT NOT NULL DEFAULT '',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ''')
 
     conn.commit()
+
+    # Миграции – добавяме нови колони ако вече съществува стара БД
+    migrations = [
+        ("hosts", "password_hash", "TEXT NOT NULL DEFAULT ''"),
+        ("hosts", "photos", "TEXT DEFAULT '[]'"),
+        ("hosts", "max_guests", "INTEGER NOT NULL DEFAULT 1"),
+        ("volunteers", "password_hash", "TEXT NOT NULL DEFAULT ''"),
+    ]
+    for table, column, col_type in migrations:
+        try:
+            cursor.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
+            conn.commit()
+        except Exception:
+            pass  # колоната вече съществува
+
     conn.close()
