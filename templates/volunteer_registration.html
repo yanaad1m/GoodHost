@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Регистрация на доброволец – GoodHost</title>
+  <title>Регистрация на доброволец-GoodHost</title>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="logo">
-      <img src="/static/logo.png" alt="GoodHost лого"/>
+      <img src="/static/iconpic.png" alt="GoodHost лого" style="height:45px; width:auto;"/>
       <span>GoodHost</span>
     </div>
     <nav>
@@ -18,51 +17,52 @@
       <a href="/registration">Регистрация</a>
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
+      <a href="/login"><button>Вход</button></a>
     </nav>
   </header>
 
-  <!-- MAIN -->
   <main>
     <h1>Регистрация на доброволец</h1>
     <p>Полетата, отбелязани с <span style="color:red;">*</span>, са задължителни.</p>
 
-    <form action="/register/volunteer" method="POST">
+    <form action="/register/volunteer" method="POST" enctype="multipart/form-data">
 
       <fieldset>
         <legend>Лична информация</legend>
 
-        <label for="name">Пълно име <span style="color:red;">*</span></label><br/>
+        <label for="name">Име и фамилия <span style="color:red;">*</span></label><br/>
         <input type="text" id="name" name="name" required placeholder="Иван Иванов"/><br/><br/>
 
         <label for="age">Години <span style="color:red;">*</span></label><br/>
-        <input type="number" id="age" name="age" required min="18" max="100" placeholder="25"/><br/><br/>
+        <input type="number" id="age" name="age" required min="18" max="120" placeholder="25"/><br/><br/>
 
         <label for="email">Имейл адрес <span style="color:red;">*</span></label><br/>
         <input type="email" id="email" name="email" required placeholder="ivan@example.com"/><br/><br/>
 
         <label for="phone">Телефонен номер <span style="color:red;">*</span></label><br/>
         <input type="tel" id="phone" name="phone" required placeholder="+359 888 123 456"/><br/><br/>
+
+        <label for="password">Парола <span style="color:red;">*</span></label><br/>
+        <input type="password" id="password" name="password" required placeholder="********"/><br/><br/>
+
+        <label for="password_confirm">Потвърди парола <span style="color:red;">*</span></label><br/>
+        <input type="password" id="password_confirm" name="password_confirm" required placeholder="********"
+          onchange="this.value !== document.getElementById('password').value ? this.setCustomValidity('Паролите не съвпадат.') : this.setCustomValidity('')"/><br/><br/>
       </fieldset>
 
-      <p>
-        След регистрацията разгледай профилите на домакините в страницата
-        <a href="/hosts">Домакини</a> и се свържи директно с тях по имейл или телефон.
-      </p>
-
-      <button type="submit">Регистрирай се като доброволец</button>
+      <button type="submit">Изпрати регистрацията</button>
 
     </form>
 
     <p>Искаш да станеш домакин? <a href="/hostsregistration">Регистрирай се тук</a></p>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2026 GoodHost. Всички права запазени.</p>
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
-      <a href="https://facebook.com" target="_blank">Facebook</a>
-      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://facebook.com">Facebook</a>
+      <a href="https://instagram.com">Instagram</a>
     </div>
   </footer>
 

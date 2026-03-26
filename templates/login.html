@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Регистрация-GoodHost</title>
+  <title>Вход-GoodHost</title>
 </head>
 <body>
 
   <header>
     <div class="logo">
       <img src="/static/iconpic.png" alt="GoodHost лого" style="height:45px; width:auto;"/>
-      <span>Регистрация-GoodHost</span>
+      <span>GoodHost</span>
     </div>
     <nav>
       <a href="/">Начало</a>
@@ -22,20 +22,27 @@
   </header>
 
   <main>
-    <h1>Регистрирай се тук!</h1>
-    
-    <a href="/hostsregistration"><button>Домакин</button></a>
-    <a href="/register/volunteer"><button>Доброволец</button></a>
+    <h1>Вход</h1>
 
-    
+    <form action="/login" method="POST">
+
+      <label for="email">Имейл адрес</label><br/>
+      <input type="email" id="email" name="email" required placeholder="ivan@example.com"/><br/><br/>
+
+      <label for="password">Парола</label><br/>
+      <input type="password" id="password" name="password" required placeholder="********"/><br/><br/>
+
+      <button type="submit">Влез</button>
+
+    </form>
+
+    <p>Нямаш профил? <a href="/registration">Регистрирай се</a></p>
+
   </main>
-
 
   <footer>
     <p>© 2026 GoodHost. Всички права запазени.</p>
-
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
-
     <div>
       <a href="https://facebook.com">Facebook</a>
       <a href="https://instagram.com">Instagram</a>

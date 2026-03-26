@@ -61,6 +61,14 @@ def rules():
     return render_template('rules.html')
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # TODO: обработка на вход
+        pass
+    return render_template('login.html')
+
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Домакини – GoodHost</title>
+  <title>Домакини-GoodHost</title>
 </head>
 <body>
 
-  <!-- HEADER -->
+
   <header>
     <div class="logo">
-      <img src="/static/logo.png" alt="GoodHost лого"/>
+      <img src="/static/iconpic.png" alt="GoodHost лого" style="height:45px; width:auto;"/>
       <span>GoodHost</span>
     </div>
     <nav>
@@ -18,10 +18,11 @@
       <a href="/registration">Регистрация</a>
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
+      <a href="/login"><button>Вход</button></a>
     </nav>
   </header>
 
-  <!-- ТЪРСЕНЕ -->
+
   <main>
     <h1>Намери своя домакин</h1>
     <p>Разгледай домакините из цяла България и се свържи директно с тях.</p>
@@ -42,7 +43,7 @@
       </p>
     {% endif %}
 
-    <!-- СПИСЪК С ДОМАКИНИ -->
+
     {% if hosts %}
       {% for host in hosts %}
         <div style="border:1px solid #ccc; margin:16px 0; padding:16px;">
@@ -62,7 +63,7 @@
             <a href="mailto:{{ host['email'] }}">✉ {{ host['email'] }}</a> &nbsp;|&nbsp;
             <a href="tel:{{ host['phone'] }}">📞 {{ host['phone'] }}</a>
             {% if host['social_link'] %}
-              &nbsp;|&nbsp; <a href="{{ host['social_link'] }}" target="_blank">🔗 Социален профил</a>
+              &nbsp;|&nbsp; <a href="{{ host['social_link'] }}">🔗 Социален профил</a>
             {% endif %}
           </p>
 
@@ -76,13 +77,12 @@
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2026 GoodHost. Всички права запазени.</p>
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
-      <a href="https://facebook.com" target="_blank">Facebook</a>
-      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://facebook.com">Facebook</a>
+      <a href="https://instagram.com">Instagram</a>
     </div>
   </footer>
 
