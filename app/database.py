@@ -49,6 +49,10 @@ def init_db():
         ("hosts", "photos", "TEXT DEFAULT '[]'"),
         ("hosts", "max_guests", "INTEGER NOT NULL DEFAULT 1"),
         ("volunteers", "password_hash", "TEXT NOT NULL DEFAULT ''"),
+        ("hosts", "id_verified", "BOOLEAN NOT NULL DEFAULT 0"),
+        ("hosts", "stripe_verification_id", "TEXT"),
+        ("volunteers", "id_verified", "BOOLEAN NOT NULL DEFAULT 0"),
+        ("volunteers", "stripe_verification_id", "TEXT"),
     ]
     for table, column, col_type in migrations:
         try:
