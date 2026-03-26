@@ -76,26 +76,28 @@ nav a button:hover {
 
 /* HERO */
 .hero {
-  background-color: var(--red);
+  background-color: #b31d3b;
   color: var(--cream);
-  text-align: center;
+  text-align: left;
   padding: 80px 40px;
 }
 
 .hero h1 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   line-height: 1.4;
   margin-bottom: 24px;
   max-width: 700px;
-  margin-left: auto;
+  margin-left: 2.2rem;
   margin-right: auto;
 }
 
 .hero p {
   font-size: 1.1rem;
   line-height: 1.8;
+  margin-bottom: 24px;
   max-width: 600px;
-  margin: 0 auto 36px;
+  margin-left: 2.2rem;
+  margin-right: auto;
   color: var(--cream);
   opacity: 0.9;
 }
@@ -106,6 +108,7 @@ nav a button:hover {
   color: var(--cream);
   text-decoration: none;
   padding: 14px 36px;
+  margin-left: 2.2rem;
   border-radius: 4px;
   font-size: 1.1rem;
   letter-spacing: 0.5px;
@@ -164,7 +167,7 @@ footer {
 }
 
 footer a {
-  color:#ee4365 ;
+  color:#ffb7c5 ;
   text-decoration: none;
 }
 
