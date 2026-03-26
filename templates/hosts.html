@@ -4,9 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Домакини-GoodHost</title>
+  <link rel="stylesheet" href="/static/css/hosts.css"/>
 </head>
 <body>
-
 
   <header>
     <div class="logo">
@@ -18,10 +18,14 @@
       <a href="/registration">Регистрация</a>
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
-      <a href="/login"><button>Вход</button></a>
+      {% if is_logged_in %}
+        <span style="color:var(--cream);font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
+        <a href="/logout"><button>Излез</button></a>
+      {% else %}
+        <a href="/login"><button>Вход</button></a>
+      {% endif %}
     </nav>
   </header>
-
 
   <main>
     <h1>Намери своя домакин</h1>
@@ -43,32 +47,72 @@
       </p>
     {% endif %}
 
-
     {% if hosts %}
-      {% for host in hosts %}
-        <div style="border:1px solid #ccc; margin:16px 0; padding:16px;">
-
+      <div class="cards-grid">
+        {% for host in hosts %}
           {% set photos = host['photos'] | from_json %}
-          {% if photos %}
-            <img src="/static/uploads/{{ photos[0] }}" alt="{{ host['name'] }}"
-                 style="width:200px; height:150px; object-fit:cover;"/><br/>
-          {% endif %}
 
-          <h2>{{ host['name'] }}, {{ host['age'] }}г.</h2>
-          <p><strong>Локация:</strong> {{ host['location'] }}</p>
-          <p><strong>Макс. гости:</strong> {{ host['max_guests'] }}</p>
-          <p>{{ host['bio'] }}</p>
+          <div class="host-card">
 
-          <p>
-            <a href="mailto:{{ host['email'] }}">✉ {{ host['email'] }}</a> &nbsp;|&nbsp;
-            <a href="tel:{{ host['phone'] }}">📞 {{ host['phone'] }}</a>
-            {% if host['social_link'] %}
-              &nbsp;|&nbsp; <a href="{{ host['social_link'] }}">🔗 Социален профил</a>
+            <!-- КАРОСЕЛ -->
+            <div class="carousel" id="c{{ loop.index }}">
+              {% if photos %}
+                {% for photo in photos %}
+                  <img
+                    src="/static/uploads/{{ photo }}"
+                    alt="{{ host['name'] }}"
+                    class="carousel-img{% if not loop.first %} hidden{% endif %}"/>
+                {% endfor %}
+                {% if photos|length > 1 %}
+                  <button class="carousel-btn prev" onclick="moveCarousel('c{{ loop.index }}', -1)">&#8249;</button>
+                  <button class="carousel-btn next" onclick="moveCarousel('c{{ loop.index }}', 1)">&#8250;</button>
+                  <div class="carousel-dots" id="dots{{ loop.index }}">
+                    {% for photo in photos %}
+                      <span class="dot{% if loop.first %} active{% endif %}"
+                            onclick="goToSlide('c{{ loop.index }}', {{ loop.index0 }})"></span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% else %}
+                <div class="carousel-placeholder">Няма снимка</div>
+              {% endif %}
+            </div>
+
+            <!-- ВИДИМА ИНФОРМАЦИЯ -->
+            <div class="card-body">
+              <h2>{{ host['name'] }}, {{ host['age'] }}г.</h2>
+              <p class="card-meta">
+                <span>📍 {{ host['location'] }}</span>
+                <a href="mailto:{{ host['email'] }}">✉ {{ host['email'] }}</a>
+              </p>
+
+              {% if current_user_type == 'host' and current_user_id == host['id'] %}
+              <form action="/hosts/{{ host['id'] }}/delete" method="POST"
+                    onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш профила си?')">
+                <button type="submit" class="delete-btn">Изтрий профила</button>
+              </form>
             {% endif %}
-          </p>
 
-        </div>
-      {% endfor %}
+            <!-- РАЗГЪВАЩА СЕ СЕКЦИЯ -->
+              <details class="card-details">
+                <summary>Виж повече</summary>
+                <div class="card-extra">
+                  {% if host['bio'] %}
+                    <p>{{ host['bio'] }}</p>
+                  {% endif %}
+                  <p><strong>Макс. гости:</strong> {{ host['max_guests'] }}</p>
+                  <p><a href="tel:{{ host['phone'] }}">📞 {{ host['phone'] }}</a></p>
+                  {% if host['social_link'] %}
+                    <p><a href="{{ host['social_link'] }}" target="_blank">🔗 Социален профил</a></p>
+                  {% endif %}
+
+                </div>
+              </details>
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
 
     {% else %}
       <p>Все още няма регистрирани домакини.</p>
@@ -85,6 +129,28 @@
       <a href="https://instagram.com">Instagram</a>
     </div>
   </footer>
+
+  <script>
+    function moveCarousel(id, dir) {
+      const carousel = document.getElementById(id);
+      const imgs = carousel.querySelectorAll('.carousel-img');
+      const dots = carousel.querySelectorAll('.dot');
+      let current = [...imgs].findIndex(img => !img.classList.contains('hidden'));
+      imgs[current].classList.add('hidden');
+      if (dots.length) dots[current].classList.remove('active');
+      current = (current + dir + imgs.length) % imgs.length;
+      imgs[current].classList.remove('hidden');
+      if (dots.length) dots[current].classList.add('active');
+    }
+
+    function goToSlide(id, index) {
+      const carousel = document.getElementById(id);
+      const imgs = carousel.querySelectorAll('.carousel-img');
+      const dots = carousel.querySelectorAll('.dot');
+      imgs.forEach((img, i) => img.classList.toggle('hidden', i !== index));
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+  </script>
 
 </body>
 </html>

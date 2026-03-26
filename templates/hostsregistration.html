@@ -17,13 +17,26 @@
       <a href="/registration">Регистрация</a>
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
-      <a href="/login"><button>Вход</button></a>
+      {% if is_logged_in %}
+        <span style="color:#9B1C35;font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
+        <a href="/logout"><button>Излез</button></a>
+      {% else %}
+        <a href="/login"><button>Вход</button></a>
+      {% endif %}
     </nav>
   </header>
 
   <main>
     <h1>Регистрация на домакин</h1>
     <p>Полетата, отбелязани с <span style="color:red;">*</span>, са задължителни.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p style="color:{% if category == 'error' %}#9B1C35{% else %}#A8C256{% endif %}; font-weight:bold;">
+          {{ message }}
+        </p>
+      {% endfor %}
+    {% endwith %}
 
     <form action="/hostsregistration" method="POST" enctype="multipart/form-data">
 
@@ -70,6 +83,9 @@
 
       <fieldset>
         <legend>Препоръчителна информация (незадължително)</legend>
+
+        <label for="max_guests">Максимален брой гости <span style="color:red;">*</span></label><br/>
+        <input type="number" id="max_guests" name="max_guests" required min="1" max="20" placeholder="2"/><br/><br/>
 
         <label for="photos">Снимки (максимум 3)</label><br/>
         <input type="file" id="photos" name="photos" accept="image/*" multiple

@@ -75,6 +75,7 @@ def send_login_email(to_email, name):
 def inject_session():
     return dict(
         is_logged_in='user_id' in session,
+        current_user_id=session.get('user_id'),
         current_user_name=session.get('user_name', ''),
         current_user_type=session.get('user_type', ''),
     )
@@ -131,12 +132,14 @@ def hostsregistration():
                     f.save(os.path.join(UPLOAD_FOLDER, filename))
                     photos.append(filename)
 
+        max_guests = int(request.form.get('max_guests', 1) or 1)
+
         db = get_db()
         try:
             db.execute(
-                '''INSERT INTO hosts (name, age, bio, email, phone, location, password_hash, photos)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)''',
-                (name, int(age), about, email, phone, location, password_hash, json.dumps(photos))
+                '''INSERT INTO hosts (name, age, bio, email, phone, location, max_guests, password_hash, photos)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+                (name, int(age), about, email, phone, location, max_guests, password_hash, json.dumps(photos))
             )
             db.commit()
         except Exception as e:
@@ -212,6 +215,21 @@ def hosts():
     return render_template('hosts.html', hosts=hosts_list, search=search)
 
 
+@app.route('/hosts/<int:host_id>/delete', methods=['POST'])
+def delete_host(host_id):
+    if 'user_id' not in session or session.get('user_type') != 'host':
+        return redirect(url_for('login'))
+    if session['user_id'] != host_id:
+        return redirect(url_for('hosts'))
+    db = get_db()
+    db.execute('DELETE FROM hosts WHERE id = ?', (host_id,))
+    db.commit()
+    db.close()
+    session.clear()
+    flash('Профилът ти беше изтрит успешно.', 'success')
+    return redirect(url_for('index'))
+
+
 @app.route('/rules')
 def rules():
     return render_template('rules.html')
@@ -220,7 +238,7 @@ def rules():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:
-        return redirect(url_for('profile'))
+        return redirect(url_for('logout'))
 
     if request.method == 'POST':
         email    = request.form.get('email', '').strip().lower()

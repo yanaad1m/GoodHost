@@ -1,0 +1,206 @@
+/* Color palette */
+:root {
+  --red:   #9B1C35;
+  --cream: #FBF3E4;
+  --green: #A8C256;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--red);
+  font-family: Georgia, serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+header {
+  background-color: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo span {
+  color: var(--cream);
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+nav a:hover {
+  color: var(--green);
+}
+
+nav a button {
+  background-color: var(--green);
+  color: var(--cream);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+nav a button:hover {
+  background-color: #8faa3e;
+}
+
+/* MAIN */
+main {
+  flex: 1;
+  max-width: 900px;
+  width: 100%;
+  margin: 60px auto;
+  padding: 0 30px;
+}
+
+main h1 {
+  font-size: 2rem;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+main > p {
+  font-size: 0.95rem;
+  color: var(--red);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+main > p a {
+  color: var(--red);
+  text-decoration: none;
+}
+
+main > p a:hover {
+  color: var(--green);
+}
+
+/* Required star */
+span[style*="color:red"] {
+  color: var(--red) !important;
+}
+
+/* FORM */
+form[action="/register/volunteer"] {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+fieldset {
+  border: 2px solid var(--red);
+  border-radius: 4px;
+  padding: 20px 24px;
+  background: #fff;
+}
+
+legend {
+  color: var(--red);
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: Georgia, serif;
+  padding: 0 8px;
+}
+
+fieldset label {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+fieldset input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid var(--red);
+  border-radius: 4px;
+  background: var(--cream);
+  font-size: 0.95rem;
+  font-family: Georgia, serif;
+  color: var(--red);
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 14px;
+}
+
+fieldset input:focus {
+  border-color: var(--green);
+  background: #fff;
+}
+
+fieldset input:last-child {
+  margin-bottom: 0;
+}
+
+form[action="/register/volunteer"] button[type="submit"] {
+  align-self: flex-start;
+  background-color: var(--green);
+  color: var(--cream);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 28px;
+  font-size: 1rem;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+form[action="/register/volunteer"] button[type="submit"]:hover {
+  background-color: #8faa3e;
+}
+
+/* FOOTER */
+footer {
+  background-color: var(--red);
+  color: var(--cream);
+  text-align: left;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+footer a {
+  color: #ee4365;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer div {
+  display: flex;
+  justify-content: left;
+  gap: 20px;
+}

@@ -1,0 +1,157 @@
+/* Color palette */
+:root {
+  --red:   #9B1C35;
+  --cream: #FBF3E4;
+  --green: #A8C256;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--red);
+  font-family: Georgia, serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+header {
+  background-color: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo span {
+  color: var(--cream);
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+nav a:hover {
+  color: var(--green);
+}
+
+nav a button {
+  background-color: var(--green);
+  color: var(--cream);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+nav a button:hover {
+  background-color: #8faa3e;
+}
+
+/* MAIN */
+main {
+  flex: 1;
+  max-width: 900px;
+  width: 100%;
+  margin: 60px auto;
+  padding: 0 30px;
+}
+
+main h1 {
+  font-size: 2rem;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+main > p {
+  font-size: 0.95rem;
+  color: var(--red);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+main h2 {
+  font-size: 1.1rem;
+  color: var(--red);
+  margin: 30px 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  border-left: 4px solid var(--green);
+  padding-left: 14px;
+}
+
+/* LISTS */
+main ol {
+  padding-left: 18px;
+  color: var(--red);
+  line-height: 2;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+main ol li {
+  margin-bottom: 0.5rem;
+}
+
+main ol li strong {
+  color: var(--red);
+  display: block;
+  margin-bottom: 0;
+}
+
+main ol li br {
+  display: none;
+}
+
+/* FOOTER */
+footer {
+  background-color: var(--red);
+  color: var(--cream);
+  text-align: left;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+footer a {
+  color: #ee4365;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer div {
+  display: flex;
+  justify-content: left;
+  gap: 20px;
+}
