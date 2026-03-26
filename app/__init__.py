@@ -10,6 +10,9 @@ def create_app():
     init_db()
 
     from app.routes.webhook import webhook_bp
+    from app.routes.verify import verify_bp
+
     app.register_blueprint(webhook_bp)
+    app.register_blueprint(verify_bp)
 
     return app
