@@ -7,11 +7,7 @@
 }
 
 /* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   background-color: var(--cream);
@@ -28,65 +24,47 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 40px;
+  padding: 0.75em 2.5em;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.logo { display: flex; align-items: center; gap: 0.625em; }
 
 .logo span {
   color: var(--cream);
-  font-size: 1.4rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-nav a {
-  color: var(--cream);
-  text-decoration: none;
   font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.0625em;
 }
 
-nav a:hover {
-  color: var(--green);
-}
+nav { display: flex; align-items: center; gap: 1.5em; }
+
+nav a { color: var(--cream); text-decoration: none; font-size: 1rem; }
+nav a:hover { color: var(--green); }
 
 nav a button {
   background-color: var(--green);
   color: var(--cream);
   border: none;
-  padding: 8px 20px;
-  border-radius: 4px;
+  padding: 0.5em 1.25em;
+  border-radius: 1.875em;
   font-size: 1rem;
   cursor: pointer;
 }
-
-nav a button:hover {
-  background-color: #8faa3e;
-}
+nav a button:hover { background-color: #8faa3e; }
 
 /* HERO */
 .hero {
   background-color: #b31d3b;
   color: var(--cream);
   text-align: left;
-  padding: 80px 40px;
+  padding: 5em 2.5em;
 }
 
 .hero h1 {
   font-size: 2.5rem;
   line-height: 1.4;
-  margin-bottom: 24px;
-  max-width: 700px;
+  margin-bottom: 1.3em;
+  max-width: 43.75em;
   margin-left: 2.2rem;
   margin-right: auto;
 }
@@ -94,8 +72,8 @@ nav a button:hover {
 .hero p {
   font-size: 1.1rem;
   line-height: 1.8;
-  margin-bottom: 24px;
-  max-width: 600px;
+  margin-bottom: 1.5em;
+  max-width: 37.5em;
   margin-left: 2.2rem;
   margin-right: auto;
   color: var(--cream);
@@ -107,76 +85,59 @@ nav a button:hover {
   background-color: var(--green);
   color: var(--cream);
   text-decoration: none;
-  padding: 14px 36px;
+  padding: 0.875em 2.25em;
   margin-left: 2.2rem;
-  border-radius: 4px;
+  border-radius: 1.875em;
   font-size: 1.1rem;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.03125em;
 }
-
-.hero-btn:hover {
-  background-color: #8faa3e;
-}
+.hero-btn:hover { background-color: #8faa3e; }
 
 /* INFO SECTION */
 .info {
   display: flex;
-  gap: 40px;
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 0 30px;
+  gap: 2.5em;
+  max-width: 56.25em;
+  margin: 3.75em auto;
+  padding: 0 1.875em;
 }
 
 .info-block {
   flex: 1;
-  border-left: 4px solid var(--green);
-  padding-left: 20px;
+  border-left: 0.25em solid var(--green);
+  padding-left: 1.25em;
 }
 
 .info-block h2 {
   font-size: 1.1rem;
   color: var(--red);
-  margin-bottom: 14px;
+  margin-bottom: 0.875em;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.0625em;
   opacity: 0.7;
 }
 
 .info-block ol,
 .info-block ul {
-  padding-left: 18px;
+  padding-left: 1.125em;
   color: var(--red);
   line-height: 2;
   font-size: 0.95rem;
 }
 
-.info-block strong {
-  color: var(--green);
-}
+.info-block strong { color: var(--green); }
 
 /* FOOTER */
 footer {
   background-color: var(--red);
   color: var(--cream);
   text-align: left;
-  padding: 20px 40px;
+  padding: 1.25em 2.5em;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5em;
   margin-top: auto;
 }
-
-footer a {
-  color:#ffb7c5 ;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-footer div {
-  display: flex;
-  justify-content: left;
-  gap: 20px;
-}
+footer a { color: #ffb7c5; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer div { display: flex; justify-content: left; gap: 1.25em; }

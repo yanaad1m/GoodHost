@@ -19,8 +19,7 @@
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
       {% if is_logged_in %}
-        <span style="color:var(--cream);font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
-        <a href="/logout"><button>Излез</button></a>
+        <a href="/profile"><button>Профил</button></a>
       {% else %}
         <a href="/login"><button>Вход</button></a>
       {% endif %}
@@ -58,9 +57,7 @@
             <div class="carousel" id="c{{ loop.index }}">
               {% if photos %}
                 {% for photo in photos %}
-                  <img
-                    src="/static/uploads/{{ photo }}"
-                    alt="{{ host['name'] }}"
+                  <img src="/static/uploads/{{ photo }}" alt="{{ host['name'] }}"
                     class="carousel-img{% if not loop.first %} hidden{% endif %}"/>
                 {% endfor %}
                 {% if photos|length > 1 %}
@@ -87,11 +84,10 @@
               </p>
 
               {% if current_user_type == 'host' and current_user_id == host['id'] %}
-              <form action="/hosts/{{ host['id'] }}/delete" method="POST"
-                    onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш профила си?')">
-                <button type="submit" class="delete-btn">Изтрий профила</button>
+              <form action="/hosts/{{ host['id'] }}/delete" method="POST" id="delete-form-{{ host['id'] }}">
+                <button type="button" class="delete-btn" onclick="openModal('delete-form-{{ host.id }}')">Изтрий профила</button>
               </form>
-            {% endif %}
+              {% endif %}
 
             <!-- РАЗГЪВАЩА СЕ СЕКЦИЯ -->
               <details class="card-details">
@@ -126,31 +122,23 @@
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
       <a href="https://facebook.com">Facebook</a>
-      <a href="https://instagram.com">Instagram</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
     </div>
   </footer>
 
-  <script>
-    function moveCarousel(id, dir) {
-      const carousel = document.getElementById(id);
-      const imgs = carousel.querySelectorAll('.carousel-img');
-      const dots = carousel.querySelectorAll('.dot');
-      let current = [...imgs].findIndex(img => !img.classList.contains('hidden'));
-      imgs[current].classList.add('hidden');
-      if (dots.length) dots[current].classList.remove('active');
-      current = (current + dir + imgs.length) % imgs.length;
-      imgs[current].classList.remove('hidden');
-      if (dots.length) dots[current].classList.add('active');
-    }
+  <!-- DELETE MODAL -->
+  <div id="delete-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <p>Сигурен ли си, че искаш да изтриеш профила си?</p>
+      <div class="modal-actions">
+        <button id="modal-confirm" class="modal-btn confirm">Изтрий</button>
+        <button onclick="closeModal()" class="modal-btn cancel">Откажи</button>
+      </div>
+    </div>
+  </div>
 
-    function goToSlide(id, index) {
-      const carousel = document.getElementById(id);
-      const imgs = carousel.querySelectorAll('.carousel-img');
-      const dots = carousel.querySelectorAll('.dot');
-      imgs.forEach((img, i) => img.classList.toggle('hidden', i !== index));
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-    }
-  </script>
+  <script src="/static/js/carousel.js"></script>
+  <script src="/static/js/delete-modal.js"></script>
 
 </body>
 </html>

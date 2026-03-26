@@ -18,7 +18,11 @@
       <a href="/registration">Регистрация</a>
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
-      <a href="/login"><button>Вход</button></a>
+      {% if is_logged_in %}
+        <a href="/profile"><button>Профил</button></a>
+      {% else %}
+        <a href="/login"><button>Вход</button></a>
+      {% endif %}
     </nav>
   </header>
 
@@ -46,7 +50,7 @@
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
       <a href="https://facebook.com">Facebook</a>
-      <a href="https://instagram.com">Instagram</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
     </div>
   </footer>
 

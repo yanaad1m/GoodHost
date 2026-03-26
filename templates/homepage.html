@@ -19,8 +19,7 @@
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
       {% if is_logged_in %}
-        <span style="color:var(--cream);font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
-        <a href="/logout"><button>Излез</button></a>
+        <a href="/profile"><button>Профил</button></a>
       {% else %}
         <a href="/login"><button>Вход</button></a>
       {% endif %}
@@ -30,9 +29,9 @@
   <main>
 
     <div class="hero">
-      <h1>Даваш ръка,<br> получаваш свят!</h1>
-      <p>GoodHost свързва пътуващи доброволци с домакини из цяла България.
-      Домакините предлагат безплатен подслон, а доброволците помагат с битови задачи.</p>
+      <h1>Подай ръка,<br>опознай света!</h1>
+      <p>GoodHost свързва доброволци и гостоприемници из България.
+         Получаваш безплатен престой, като помагаш с ежедневни задачи. Пътувай, опознавай нови култури и създавай истински връзки.</p>
       <a href="/registration" class="hero-btn">Започни сега</a>
     </div>
 
@@ -50,8 +49,8 @@
       <div class="info-block">
         <h2>За кого е платформата?</h2>
         <ul>
-          <li><strong>Доброволци</strong> - хора, които искат да пътуват евтино и да опознаят България отвътре</li>
-          <li><strong>Домакини</strong> - хора, които имат свободно място и се нуждаят от малко помощ</li>
+          <li><strong>Доброволци</strong>- търсещи приключения, нови култури и смислени преживявания, докато помагат както могат</li>
+          <li><strong>Домакини</strong>- гостоприемни хора, готови да споделят дома си срещу малка помощ</li>
         </ul>
       </div>
     </section>
@@ -65,7 +64,7 @@
 
     <div>
       <a href="https://facebook.com">Facebook</a>
-      <a href="https://instagram.com">Instagram</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
     </div>
   </footer>
 

@@ -19,8 +19,7 @@
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
       {% if is_logged_in %}
-        <span style="color:var(--cream);font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
-        <a href="/logout"><button>Излез</button></a>
+        <a href="/profile"><button>Профил</button></a>
       {% else %}
         <a href="/login"><button>Вход</button></a>
       {% endif %}
@@ -29,7 +28,7 @@
 
   <main>
     <h1>Правила на платформата</h1>
-    <p>Прочети правилата, за да се гарантира безопасен и приятен опит за всички участници.</p>
+    <p>Прочети правилата, за да осигурим безопасно, уважително и приятно преживяване за всички.</p>
 
     <h2>За доброволци</h2>
     <ol>
@@ -130,7 +129,7 @@
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
       <a href="https://facebook.com">Facebook</a>
-      <a href="https://instagram.com">Instagram</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
     </div>
   </footer>
 

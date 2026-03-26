@@ -19,8 +19,7 @@
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
       {% if is_logged_in %}
-        <span style="color:var(--cream);font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
-        <a href="/logout"><button>Излез</button></a>
+        <a href="/profile"><button>Профил</button></a>
       {% else %}
         <a href="/login"><button>Вход</button></a>
       {% endif %}
@@ -52,8 +51,7 @@
         <input type="password" id="password" name="password" required placeholder="********"/><br/><br/>
 
         <label for="password_confirm">Потвърди парола <span style="color:red;">*</span></label><br/>
-        <input type="password" id="password_confirm" name="password_confirm" required placeholder="********"
-          onchange="this.value !== document.getElementById('password').value ? this.setCustomValidity('Паролите не съвпадат.') : this.setCustomValidity('')"/><br/><br/>
+        <input type="password" id="password_confirm" name="password_confirm" required placeholder="********"/><br/><br/>
       </fieldset>
 
       <button type="submit">Изпрати регистрацията</button>
@@ -68,9 +66,10 @@
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
       <a href="https://facebook.com">Facebook</a>
-      <a href="https://instagram.com">Instagram</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
     </div>
   </footer>
 
+  <script src="/static/js/form-validation.js"></script>
 </body>
 </html>

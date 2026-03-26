@@ -19,8 +19,7 @@
       <a href="/hosts">Домакини</a>
       <a href="/rules">Правила</a>
       {% if is_logged_in %}
-        <span style="color:#FBF3E4;font-size:0.9rem;">{{ current_user_name }} ({{ 'домакин' if current_user_type == 'host' else 'доброволец' }})</span>
-        <a href="/logout"><button>Излез</button></a>
+        <a href="/profile"><button>Профил</button></a>
       {% else %}
         <a href="/login"><button>Вход</button></a>
       {% endif %}
@@ -54,14 +53,13 @@
         <input type="email" id="email" name="email" required placeholder="ivan@example.com"/><br/><br/>
 
         <label for="phone">Телефонен номер <span style="color:red;">*</span></label><br/>
-        <input type="tel" id="phone" name="phone" required placeholder="+359 888 123 456"/><br/><br/>
+        <input type="tel" id="phone" name="phone" required placeholder="+359 888 123 456" pattern="[0-9]{10}" title="Въведи точно 10 цифри"/><br/><br/>
 
         <label for="password">Парола <span style="color:red;">*</span></label><br/>
         <input type="password" id="password" name="password" required placeholder="********"/><br/><br/>
 
         <label for="password_confirm">Потвърди парола <span style="color:red;">*</span></label><br/>
-        <input type="password" id="password_confirm" name="password_confirm" required placeholder="********"
-          onchange="this.value !== document.getElementById('password').value ? this.setCustomValidity('Паролите не съвпадат.') : this.setCustomValidity('')"/><br/><br/>
+        <input type="password" id="password_confirm" name="password_confirm" required placeholder="********"/><br/><br/>
       </fieldset>
 
       <fieldset>
@@ -88,9 +86,8 @@
         <label for="max_guests">Максимален брой гости <span style="color:red;">*</span></label><br/>
         <input type="number" id="max_guests" name="max_guests" required min="1" max="20" placeholder="2"/><br/><br/>
 
-        <label for="photos">Снимки (максимум 3)</label><br/>
-        <input type="file" id="photos" name="photos" accept="image/*" multiple
-          onchange="if(this.files.length > 3){ alert('Можете да качите най-много 3 снимки.'); this.value=''; }"/><br/><br/>
+        <label for="photos">Снимки (максимум 20)</label><br/>
+        <input type="file" id="photos" name="photos" accept="image/*" multiple/><br/><br/>
       </fieldset>
 
       <button type="submit">Изпрати регистрацията</button>
@@ -105,9 +102,10 @@
     <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
     <div>
       <a href="https://facebook.com">Facebook</a>
-      <a href="https://instagram.com">Instagram</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
     </div>
   </footer>
 
+  <script src="/static/js/form-validation.js"></script>
 </body>
 </html>

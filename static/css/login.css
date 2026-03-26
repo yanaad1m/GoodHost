@@ -28,7 +28,7 @@ header {
 
 .logo span {
   color: var(--cream);
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.0625em;
 }
@@ -43,7 +43,7 @@ nav a button {
   color: var(--cream);
   border: none;
   padding: 0.5em 1.25em;
-  border-radius: 0.25em;
+  border-radius: 1.875em;
   font-size: 1rem;
   cursor: pointer;
 }
@@ -67,7 +67,7 @@ main h1 {
 
 form {
   background: #fff;
-  border: 2px solid var(--red);
+  border: 0.125em solid var(--red);
   border-radius: 0.375em;
   padding: 2em 2.5em;
   width: 100%;
@@ -87,7 +87,7 @@ input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 0.6em 0.875em;
-  border: 1.5px solid var(--red);
+  border: 0.09375em solid var(--red);
   border-radius: 0.25em;
   font-size: 1rem;
   font-family: Georgia, serif;
@@ -104,7 +104,7 @@ button[type="submit"] {
   color: var(--cream);
   border: none;
   padding: 0.75em;
-  border-radius: 0.25em;
+  border-radius: 1.875em;
   font-size: 1rem;
   font-family: Georgia, serif;
   font-weight: bold;
@@ -130,6 +130,14 @@ footer {
   flex-direction: column;
   gap: 0.5em;
 }
-footer a { color: var(--cream); text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-footer div { display: flex; gap: 1.25em; }
+footer a { 
+  color: #ffb7c5; 
+  text-decoration: none; 
+}
+footer a:hover {
+   text-decoration: underline; 
+}
+footer div { 
+  display: flex; 
+  gap: 1.25em; 
+}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Профил-GoodHost</title>
+  <link rel="stylesheet" href="/static/css/profile.css"/>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="/static/iconpic.png" alt="GoodHost лого" style="height:45px; width:auto;"/>
+      <span>GoodHost</span>
+    </div>
+    <nav>
+      <a href="/">Начало</a>
+      <a href="/registration">Регистрация</a>
+      <a href="/hosts">Домакини</a>
+      <a href="/rules">Правила</a>
+      {% if is_logged_in %}
+        <a href="/profile"><button>Профил</button></a>
+      {% else %}
+        <a href="/login"><button>Вход</button></a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    <h1>Моят профил</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p class="flash-msg {% if category == 'error' %}flash-error{% else %}flash-success{% endif %}">
+          {{ message }}
+        </p>
+      {% endfor %}
+    {% endwith %}
+
+    <div class="profile-card">
+
+      <div class="profile-section">
+        <h2>Лична информация</h2>
+        <div class="profile-field">
+          <span class="field-label">Име:</span>
+          <span class="field-value">{{ user['name'] }}</span>
+        </div>
+        <div class="profile-field">
+          <span class="field-label">Години:</span>
+          <span class="field-value">{{ user['age'] }}</span>
+        </div>
+        <div class="profile-field">
+          <span class="field-label">Имейл:</span>
+          <span class="field-value"><a href="mailto:{{ user['email'] }}">{{ user['email'] }}</a></span>
+        </div>
+        <div class="profile-field">
+          <span class="field-label">Телефон:</span>
+          <span class="field-value"><a href="tel:{{ user['phone'] }}">{{ user['phone'] }}</a></span>
+        </div>
+      </div>
+
+      {% if current_user_type == 'host' %}
+      <div class="profile-section">
+        <h2>Информация за домакин</h2>
+        <div class="profile-field">
+          <span class="field-label">Локация:</span>
+          <span class="field-value">{{ user['location'] }}</span>
+        </div>
+        <div class="profile-field">
+          <span class="field-label">За мен:</span>
+          <span class="field-value">{{ user['bio'] }}</span>
+        </div>
+        <div class="profile-field">
+          <span class="field-label">Макс. гости:</span>
+          <span class="field-value">{{ user['max_guests'] }}</span>
+        </div>
+      </div>
+
+      {% set photos = user['photos'] | from_json %}
+      {% if photos %}
+      <div class="profile-section">
+        <h2>Снимки</h2>
+        <div class="gallery">
+          {% for photo in photos %}
+            <img src="/static/uploads/{{ photo }}" alt="Снимка" class="gallery-img"/>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+
+      <div class="profile-actions">
+        <a href="/logout"><button class="logout-btn">Излез</button></a>
+
+        {% if current_user_type == 'host' %}
+        <form action="/hosts/{{ user['id'] }}/delete" method="POST" id="delete-form-{{ user['id'] }}">
+          <button type="button" class="delete-btn" onclick="openModal('delete-form-{{ user.id }}')">Изтрий профила</button>
+        </form>
+        {% endif %}
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 GoodHost. Всички права запазени.</p>
+    <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
+    <div>
+      <a href="https://facebook.com">Facebook</a>
+      <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank" >Instagram</a>
+    </div>
+  </footer>
+
+  <!-- DELETE MODAL -->
+  <div id="delete-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <p>Сигурен ли си, че искаш да изтриеш профила си?</p>
+      <div class="modal-actions">
+        <button id="modal-confirm" class="modal-btn confirm">Изтрий</button>
+        <button onclick="closeModal()" class="modal-btn cancel">Откажи</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/delete-modal.js"></script>
+
+</body>
+</html>

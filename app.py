@@ -126,7 +126,7 @@ def hostsregistration():
 
         photos = []
         if 'photos' in request.files:
-            for f in request.files.getlist('photos')[:3]:
+            for f in request.files.getlist('photos')[:20]:
                 if f and f.filename and allowed_file(f.filename):
                     filename = f"{int(time.time())}_{secure_filename(f.filename)}"
                     f.save(os.path.join(UPLOAD_FOLDER, filename))
@@ -275,7 +275,13 @@ def profile():
     if 'user_id' not in session:
         flash('Трябва да влезеш в профила си.', 'error')
         return redirect(url_for('login'))
-    return redirect(url_for('hosts'))
+    db = get_db()
+    if session['user_type'] == 'host':
+        user = db.execute('SELECT * FROM hosts WHERE id = ?', (session['user_id'],)).fetchone()
+    else:
+        user = db.execute('SELECT * FROM volunteers WHERE id = ?', (session['user_id'],)).fetchone()
+    db.close()
+    return render_template('profile.html', user=user)
 
 
 if __name__ == '__main__':
