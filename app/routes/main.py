@@ -254,10 +254,11 @@ def volunteer_registration():
 
         db = get_db()
         try:
-            db.execute(
+            cursor = db.execute(
                 'INSERT INTO volunteers (name, age, email, phone, password_hash) VALUES (?, ?, ?, ?, ?)',
                 (name, int(age), email, phone, password_hash)
             )
+            volunteer_id = cursor.lastrowid
             db.commit()
         except Exception as e:
             db.close()
@@ -269,8 +270,7 @@ def volunteer_registration():
         db.close()
 
         send_registration_email(email, name, 'volunteer')
-        flash('Регистрацията беше успешна! Вече можеш да влезеш.', 'success')
-        return redirect(url_for('main.login'))
+        return redirect(url_for('verify.verify_page', user_type='volunteer', user_id=volunteer_id))
 
     return render_template('volunteer_registration.html')
 
