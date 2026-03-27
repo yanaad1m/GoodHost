@@ -61,9 +61,9 @@ nav a button:hover { background-color: #8faa3e; }
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   line-height: 1.4;
-  margin-bottom: 1.3em;
+  margin-bottom: 0.5em;
   max-width: 43.75em;
   margin-left: 2.2rem;
   margin-right: auto;
@@ -105,11 +105,11 @@ nav a button:hover { background-color: #8faa3e; }
 .info-block {
   flex: 1;
   border-left: 0.25em solid var(--green);
-  padding-left: 1.25em;
+  padding-left: 1.1em;
 }
 
 .info-block h2 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--red);
   margin-bottom: 0.875em;
   text-transform: uppercase;
@@ -122,7 +122,7 @@ nav a button:hover { background-color: #8faa3e; }
   padding-left: 1.125em;
   color: var(--red);
   line-height: 2;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .info-block strong { color: var(--green); }

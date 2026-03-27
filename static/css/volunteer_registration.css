@@ -204,3 +204,14 @@ footer div {
   justify-content: left;
   gap: 1.25em;
 }
+
+/* FLASH MESSAGES */
+main > p[style] {
+  font-size: 1.05rem;
+  font-weight: bold;
+  padding: 0.75em 1.25em;
+  border-radius: 0.375em;
+  border: 0.125em solid currentColor;
+  background-color: rgba(155, 28, 53, 0.08);
+  margin-bottom: 1.25em;
+}

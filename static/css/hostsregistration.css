@@ -28,7 +28,7 @@ header {
 
 .logo span {
   color: var(--cream);
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: bold;
   letter-spacing: 0.0625em;
 }
@@ -66,10 +66,22 @@ main h1 {
   margin-bottom: 0.5em;
 }
 
-main > p { font-size: 0.9rem; color: var(--red); margin-bottom: 1.5em; }
+main > p { 
+  font-size: 0.9rem; 
+  color: var(--red); 
+  margin-bottom: 1.5em; 
+}
 
 /* FLASH MESSAGES */
-main > p[style] { margin-bottom: 1em; }
+main > p[style] {
+  font-size: 1.05rem;
+  font-weight: bold;
+  padding: 0.75em 1.25em;
+  border-radius: 0.375em;
+  border: 0.125em solid currentColor;
+  background-color: rgba(155, 28, 53, 0.08);
+  margin-bottom: 1.25em;
+}
 
 /* FIELDSETS */
 fieldset {
@@ -113,7 +125,9 @@ textarea {
   margin-bottom: 0.75em;
 }
 
-input:focus, textarea:focus { border-color: var(--green); }
+input:focus, textarea:focus { 
+  border-color: var(--green); 
+}
 
 input[type="file"] {
   font-size: 0.9rem;
@@ -136,9 +150,16 @@ button[type="submit"] {
 }
 button[type="submit"]:hover { background-color: #8faa3e; }
 
-main > p:last-child { font-size: 0.9rem; }
-main > p:last-child a { color: var(--green); text-decoration: none; }
-main > p:last-child a:hover { text-decoration: underline; }
+main > p:last-child { 
+  font-size: 0.9rem; 
+}
+main > p:last-child a { 
+  color: var(--green); 
+  text-decoration: none; 
+}
+main > p:last-child a:hover { 
+  text-decoration: underline; 
+}
 
 /* FOOTER */
 footer {
