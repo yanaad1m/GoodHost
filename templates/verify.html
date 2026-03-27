@@ -71,6 +71,7 @@
     const stripe     = Stripe("{{ stripe_publishable_key }}");
     const userType   = "{{ user_type }}";
     const userId     = "{{ user_id }}";
+    const redirectAfterVerify = "{{ '/profile' if is_logged_in else '/login' }}";
     const btn        = document.getElementById('verify-btn');
     const statusMsg  = document.getElementById('status-msg');
 
@@ -102,7 +103,7 @@
         } else {
           statusMsg.style.color = '#2e7d32';
           statusMsg.textContent = 'Верификацията е изпратена! Пренасочване...';
-          setTimeout(() => { window.location.href = '/login'; }, 2000);
+          setTimeout(() => { window.location.href = redirectAfterVerify; }, 2000);
         }
 
       } catch (err) {

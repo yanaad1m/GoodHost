@@ -241,6 +241,55 @@ main {
 }
 .contact-field a:hover { color: var(--green); }
 
+.verification-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.verification-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.35em 0.8em;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.verification-badge.verified {
+  background: #eef5d6;
+  color: #4a6b0f;
+  border: 0.0625em solid var(--green);
+}
+
+.verification-badge.not-verified {
+  background: #fde8ec;
+  color: var(--red);
+  border: 0.0625em solid var(--red);
+}
+
+.verification-note {
+  font-size: 0.9rem;
+  color: var(--red);
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.verify-btn {
+  background-color: var(--green);
+  color: var(--cream);
+  border: none;
+  padding: 0.55em 1.25em;
+  border-radius: 1.875em;
+  font-size: 0.95rem;
+  font-family: Georgia, serif;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.verify-btn:hover { background-color: #8faa3e; }
+
 /* PHOTOS BOX */
 .photos-box {
   width: 100%;

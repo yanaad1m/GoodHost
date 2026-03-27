@@ -110,4 +110,18 @@ def get_verification_status(user_type, user_id):
     session = stripe.identity.VerificationSession.retrieve(
         row['stripe_verification_id']
     )
+
+    # Fallback при локален dev: ако webhook не е стигнал, но Stripe вече е verified,
+    # синкваме локалната БД.
+    if session.status == 'verified':
+        if not row['id_verified']:
+            conn = get_db()
+            conn.execute(
+                f'UPDATE {table} SET id_verified = 1 WHERE id = ?',
+                (user_id,)
+            )
+            conn.commit()
+            conn.close()
+        return {'verified': True, 'status': 'verified'}
+
     return {'verified': False, 'status': session.status}

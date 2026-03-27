@@ -79,6 +79,16 @@
               <a href="tel:{{ user['phone'] }}">{{ user['phone'] }}</a>
             </div>
           </div>
+          <div class="right-field verification-field">
+            <span class="contact-label">Верификация</span>
+            {% if is_verified %}
+              <span class="verification-badge verified">Верифициран профил</span>
+            {% else %}
+              <span class="verification-badge not-verified">Неверифициран профил</span>
+              <p class="verification-note">Профилът е пропуснал или не е завършил верификацията.</p>
+              <a href="{{ verification_url }}"><button class="verify-btn">Верифицирай сега</button></a>
+            {% endif %}
+          </div>
           <div class="profile-actions">
             <a href="/logout"><button class="logout-btn">Излез</button></a>
             {% if current_user_type == 'host' %}
@@ -114,7 +124,7 @@
 
   <footer>
     <p>© 2026 GoodHost. Всички права запазени.</p>
-    <p>Контакти: <a href="tel:+359888123456">+359 888 123 456</a></p>
+    <p>Контакти: <a href="mailto:goodhost230@gmail.com">goodhost230@gmail.com</a></p>
     <div>
       <a href="https://www.facebook.com/profile.php?id=61576516620688" target="_blank">Facebook</a>
       <a href="https://www.instagram.com/goodhost12/?hl=bg" target="_blank">Instagram</a>

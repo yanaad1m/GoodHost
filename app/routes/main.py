@@ -11,6 +11,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from app.database import get_db
+from app.verification import get_verification_status
 import config
 
 main_bp = Blueprint('main', __name__)
@@ -313,7 +314,7 @@ def rules():
 @main_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:
-        return redirect(url_for('main.logout'))
+        return redirect(url_for('main.profile'))
 
     if request.method == 'POST':
         email    = request.form.get('email', '').strip().lower()
@@ -350,13 +351,34 @@ def profile():
     if 'user_id' not in session:
         flash('Трябва да влезеш в профила си.', 'error')
         return redirect(url_for('main.login'))
+
+    current_user_type = session.get('user_type')
+    current_user_id = session.get('user_id')
+
     db = get_db()
-    if session['user_type'] == 'host':
-        user = db.execute('SELECT * FROM hosts WHERE id = ?', (session['user_id'],)).fetchone()
+    if current_user_type == 'host':
+        user = db.execute('SELECT * FROM hosts WHERE id = ?', (current_user_id,)).fetchone()
     else:
-        user = db.execute('SELECT * FROM volunteers WHERE id = ?', (session['user_id'],)).fetchone()
+        user = db.execute('SELECT * FROM volunteers WHERE id = ?', (current_user_id,)).fetchone()
     db.close()
-    return render_template('profile.html', user=user)
+
+    is_verified = bool(user['id_verified']) if user and 'id_verified' in user.keys() else False
+    if user and not is_verified:
+        try:
+            status = get_verification_status(current_user_type, current_user_id)
+            is_verified = bool(status.get('verified', False))
+        except Exception:
+            # Ако Stripe/мрежата не е налична, показваме локалния статус от БД.
+            pass
+    verification_url = url_for('verify.verify_page', user_type=current_user_type, user_id=current_user_id)
+
+    return render_template(
+        'profile.html',
+        user=user,
+        is_verified=is_verified,
+        verification_url=verification_url,
+        stripe_publishable_key=config.STRIPE_PUBLISHABLE_KEY
+    )
 
 
 @main_bp.route('/forgot-password', methods=['GET', 'POST'])
