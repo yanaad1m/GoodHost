@@ -220,6 +220,21 @@ def hosts():
     return render_template('hosts.html', hosts=hosts_list, search=search)
 
 
+@app.route('/volunteers/<int:volunteer_id>/delete', methods=['POST'])
+def delete_volunteer(volunteer_id):
+    if 'user_id' not in session or session.get('user_type') != 'volunteer':
+        return redirect(url_for('login'))
+    if session['user_id'] != volunteer_id:
+        return redirect(url_for('index'))
+    db = get_db()
+    db.execute('DELETE FROM volunteers WHERE id = ?', (volunteer_id,))
+    db.commit()
+    db.close()
+    session.clear()
+    flash('Профилът ти беше изтрит успешно.', 'success')
+    return redirect(url_for('index'))
+
+
 @app.route('/hosts/<int:host_id>/delete', methods=['POST'])
 def delete_host(host_id):
     if 'user_id' not in session or session.get('user_type') != 'host':
