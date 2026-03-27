@@ -38,10 +38,8 @@
 
     <div class="profile-layout">
 
-      <!-- ГОРЕН РЕД: лява карта + дясна колона -->
       <div class="profile-top">
 
-        <!-- ЛЯВА КОЛОНА -->
         <div class="profile-left">
           <div class="left-card">
             <div class="left-field name-field">
@@ -61,7 +59,7 @@
           </div>
         </div>
 
-        <!-- ДЯСНА КОЛОНА -->
+
         <div class="profile-right">
           {% if current_user_type == 'host' %}
           <div class="right-field address-field">
@@ -105,7 +103,7 @@
 
       </div>
 
-      <!-- ДОЛЕН РЕД: снимки (само за домакини) -->
+
       {% if current_user_type == 'host' %}
       {% set photos = user['photos'] | from_json %}
       <div class="photos-box">
@@ -131,7 +129,7 @@
     </div>
   </footer>
 
-  <!-- DELETE MODAL -->
+
   <div id="delete-modal" class="modal-overlay" style="display:none;">
     <div class="modal-box">
       <p>Сигурен ли си, че искаш да изтриеш профила си?</p>
@@ -144,7 +142,7 @@
 
   <script src="/static/js/delete-modal.js"></script>
 
-  <!-- LIGHTBOX -->
+
   <div id="lightbox" class="lightbox-overlay" style="display:none;" onclick="this.style.display='none'">
     <img id="lightbox-img" src="" alt=""/>
   </div>

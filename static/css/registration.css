@@ -15,7 +15,7 @@ body {
   flex-direction: column;
 }
 
-/* HEADER */
+
 header {
   background-color: var(--red);
   display: flex;
@@ -51,7 +51,7 @@ nav a button {
 }
 nav a button:hover { background-color: #8faa3e; }
 
-/* MAIN */
+
 main {
   flex: 1;
   display: flex;
@@ -89,7 +89,6 @@ main a button:hover {
   background-color: var(--green);
 }
 
-/* FOOTER */
 footer {
   background-color: var(--red);
   color: var(--cream);

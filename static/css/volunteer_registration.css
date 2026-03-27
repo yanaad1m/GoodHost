@@ -1,11 +1,9 @@
-/* Color palette */
 :root {
   --red:   #9B1C35;
   --cream: #FBF3E4;
   --green: #A8C256;
 }
 
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +19,6 @@ body {
   flex-direction: column;
 }
 
-/* HEADER */
 header {
   background-color: var(--red);
   display: flex;
@@ -73,7 +70,6 @@ nav a button:hover {
   background-color: #8faa3e;
 }
 
-/* MAIN */
 main {
   flex: 1;
   max-width: 42em;
@@ -104,12 +100,10 @@ main > p a:hover {
   text-decoration: underline;
 }
 
-/* Required star */
 span[style*="color:red"] {
   color: var(--red) !important;
 }
 
-/* FORM */
 form[action="/register/volunteer"] {
   display: flex;
   flex-direction: column;
@@ -178,7 +172,6 @@ form[action="/register/volunteer"] button[type="submit"]:hover {
   background-color: #8faa3e;
 }
 
-/* FOOTER */
 footer {
   background-color: var(--red);
   color: var(--cream);
@@ -205,7 +198,6 @@ footer div {
   gap: 1.25em;
 }
 
-/* FLASH MESSAGES */
 main > p[style] {
   font-size: 1.05rem;
   font-weight: bold;

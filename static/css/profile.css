@@ -1,11 +1,9 @@
-/* Color palette */
 :root {
   --red:   #9B1C35;
   --cream: #FBF3E4;
   --green: #A8C256;
 }
 
-/* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -17,7 +15,6 @@ body {
   flex-direction: column;
 }
 
-/* HEADER */
 header {
   background-color: var(--red);
   display: flex;
@@ -51,7 +48,6 @@ nav a button {
 }
 nav a button:hover { background-color: #8faa3e; }
 
-/* MAIN */
 main {
   flex: 1;
   max-width: 72em;
@@ -60,7 +56,6 @@ main {
   padding: 0 2.5em;
 }
 
-/* FLASH MESSAGES */
 .flash-msg {
   padding: 0.75em 1em;
   border-radius: 0.375em;
@@ -81,7 +76,6 @@ main {
   border: 0.0625em solid var(--green);
 }
 
-/* PAGE TITLE */
 .profile-title {
   font-size: 2rem;
   color: var(--red);
@@ -89,7 +83,6 @@ main {
   font-weight: bold;
 }
 
-/* LAYOUT */
 .profile-layout {
   display: flex;
   flex-direction: column;
@@ -102,7 +95,6 @@ main {
   align-items: flex-start;
 }
 
-/* LEFT COLUMN */
 .profile-left {
   flex: 0 0 20em;
   display: flex;
@@ -153,7 +145,6 @@ main {
   opacity: 0.85;
 }
 
-/* LABELS */
 .contact-label {
   font-size: 0.7rem;
   font-weight: bold;
@@ -163,7 +154,6 @@ main {
   opacity: 0.45;
 }
 
-/* ACTION BUTTONS */
 .profile-actions {
   display: flex;
   gap: 0.75em;
@@ -198,7 +188,6 @@ main {
 }
 .delete-btn:hover { background-color: #7a1228; }
 
-/* RIGHT COLUMN */
 .profile-right {
   flex: 1;
   display: flex;
@@ -290,7 +279,6 @@ main {
 
 .verify-btn:hover { background-color: #8faa3e; }
 
-/* PHOTOS BOX */
 .photos-box {
   width: 100%;
   border-radius: 0.75em;
@@ -329,7 +317,6 @@ main {
   font-size: 0.95rem;
 }
 
-/* LIGHTBOX */
 .lightbox-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -350,7 +337,6 @@ main {
   box-shadow: 0 0 2em rgba(0,0,0,0.6);
 }
 
-/* MODAL */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -397,7 +383,6 @@ main {
 .modal-btn.cancel { background-color: var(--green); color: var(--cream); }
 .modal-btn.cancel:hover { background-color: #8faa3e; }
 
-/* FOOTER */
 footer {
   background-color: var(--red);
   color: var(--cream);

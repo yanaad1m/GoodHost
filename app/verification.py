@@ -69,7 +69,6 @@ def handle_webhook(payload, sig_header):
             conn.close()
 
     elif event['type'] == 'identity.verification_session.requires_input':
-        # Верификацията е неуспешна (невалиден документ, лошо качество и др.)
         vs = event['data']['object']
         user_type = vs['metadata'].get('user_type')
         user_id = vs['metadata'].get('user_id')
@@ -111,8 +110,6 @@ def get_verification_status(user_type, user_id):
         row['stripe_verification_id']
     )
 
-    # Fallback при локален dev: ако webhook не е стигнал, но Stripe вече е verified,
-    # синкваме локалната БД.
     if session.status == 'verified':
         if not row['id_verified']:
             conn = get_db()

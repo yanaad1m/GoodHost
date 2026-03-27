@@ -1,11 +1,9 @@
-/* Color palette */
 :root {
   --red:   #9B1C35;
   --cream: #FBF3E4;
   --green: #A8C256;
 }
 
-/* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -17,7 +15,6 @@ body {
   flex-direction: column;
 }
 
-/* HEADER */
 header {
   background-color: var(--red);
   display: flex;
@@ -51,7 +48,6 @@ nav a button {
 }
 nav a button:hover { background-color: #8faa3e; }
 
-/* MAIN */
 main {
   flex: 1;
   max-width: 72em;
@@ -81,7 +77,6 @@ main > p a {
 }
 main > p a:hover { opacity: 1; color: var(--green); border-color: var(--green); }
 
-/* SEARCH FORM */
 form[action="/hosts"] {
   display: flex;
   gap: 0.75em;
@@ -119,7 +114,6 @@ form[action="/hosts"] button[type="submit"] {
 }
 form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
 
-/* CARDS GRID */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(19em, 1fr));
@@ -127,7 +121,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
   margin-top: 0.5em;
 }
 
-/* HOST CARD */
 .host-card {
   background: #fff;
   border-radius: 0.875em;
@@ -144,7 +137,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
   transform: translateY(-0.2em);
 }
 
-/* CAROUSEL */
 .carousel {
   position: relative;
   width: 100%;
@@ -214,7 +206,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
 }
 .dot.active { background: #fff; }
 
-/* CARD BODY */
 .card-body {
   padding: 1.1em 1.25em;
   display: flex;
@@ -245,7 +236,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
 }
 .card-meta a:hover { opacity: 1; color: var(--green); }
 
-/* DETAILS / EXPAND */
 .card-details {
   margin-top: 0.25em;
   border-top: 0.0625em solid rgba(155, 28, 53, 0.1);
@@ -282,7 +272,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
 .card-extra a { color: var(--red); text-decoration: none; }
 .card-extra a:hover { color: var(--green); }
 
-/* DELETE BUTTON */
 .delete-btn {
   margin-top: 0.25em;
   background-color: var(--red);
@@ -299,7 +288,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
 }
 .delete-btn:hover { background-color: #7a1228; }
 
-/* MODAL */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -346,7 +334,6 @@ form[action="/hosts"] button[type="submit"]:hover { background-color: #7a1228; }
 .modal-btn.cancel { background-color: var(--green); color: var(--cream); }
 .modal-btn.cancel:hover { background-color: #8faa3e; }
 
-/* FOOTER */
 footer {
   background-color: var(--red);
   color: var(--cream);

@@ -368,7 +368,6 @@ def profile():
             status = get_verification_status(current_user_type, current_user_id)
             is_verified = bool(status.get('verified', False))
         except Exception:
-            # Ако Stripe/мрежата не е налична, показваме локалния статус от БД.
             pass
     verification_url = url_for('verify.verify_page', user_type=current_user_type, user_id=current_user_id)
 
@@ -404,7 +403,6 @@ def forgot_password():
             send_forgot_password_email(email, user['name'], reset_link)
 
         db.close()
-        # Показваме същото съобщение независимо дали имейлът съществува (сигурност)
         flash('Ако имейлът е регистриран, ще получиш линк за смяна на парола.', 'success')
         return redirect(url_for('main.forgot_password'))
 

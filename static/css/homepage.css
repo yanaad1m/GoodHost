@@ -1,4 +1,3 @@
-/* Color palette */
 :root {
   --red:   #9B1C35;
   --cream: #FBF3E4;
@@ -6,7 +5,6 @@
   --dark:  #1a1a1a;
 }
 
-/* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -18,7 +16,6 @@ body {
   flex-direction: column;
 }
 
-/* ── HEADER ── */
 header {
   background-color: var(--red);
   display: flex;
@@ -53,7 +50,6 @@ nav a button {
 }
 nav a button:hover { background-color: #8faa3e; }
 
-/* ── HERO ── */
 .hero {
   display: flex;
   align-items: center;
@@ -143,7 +139,6 @@ nav a button:hover { background-color: #8faa3e; }
   opacity: 0.45;
 }
 
-/* Hero image */
 .hero-visual {
   flex-shrink: 0;
   width: 44em;
@@ -166,7 +161,6 @@ nav a button:hover { background-color: #8faa3e; }
   -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 75%);
 }
 
-/* ── STATS STRIP ── */
 .stats {
   display: flex;
   align-items: center;
@@ -204,7 +198,6 @@ nav a button:hover { background-color: #8faa3e; }
   background: rgba(155, 28, 53, 0.15);
 }
 
-/* ── INFO SECTION ── */
 .info {
   display: flex;
   gap: 2em;
@@ -242,7 +235,6 @@ nav a button:hover { background-color: #8faa3e; }
   font-weight: bold;
 }
 
-/* ── FOOTER ── */
 footer {
   background-color: var(--red);
   color: var(--cream);

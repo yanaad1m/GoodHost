@@ -1,11 +1,9 @@
-/* Color palette */
 :root {
   --red:   #9B1C35;
   --cream: #FBF3E4;
   --green: #A8C256;
 }
 
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +19,6 @@ body {
   flex-direction: column;
 }
 
-/* HEADER */
 header {
   background-color: var(--red);
   display: flex;
@@ -73,7 +70,6 @@ nav a button:hover {
   background-color: #8faa3e;
 }
 
-/* MAIN */
 main {
   flex: 1;
   max-width: 56.25em;
@@ -106,7 +102,6 @@ main h2 {
   padding-left: 0.875em;
 }
 
-/* LISTS */
 main ol {
   padding-left: 1.125em;
   color: var(--red);
@@ -129,7 +124,6 @@ main ol li br {
   display: none;
 }
 
-/* FOOTER */
 footer {
   background-color: var(--red);
   color: var(--cream);

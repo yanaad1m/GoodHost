@@ -53,7 +53,6 @@
 
           <div class="host-card">
 
-            <!-- КАРОСЕЛ -->
             <div class="carousel" id="c{{ loop.index }}">
               {% if photos %}
                 {% for photo in photos %}
@@ -75,7 +74,6 @@
               {% endif %}
             </div>
 
-            <!-- ВИДИМА ИНФОРМАЦИЯ -->
             <div class="card-body">
               <h2>{{ host['name'] }}, {{ host['age'] }}г.</h2>
               <p class="card-meta">
@@ -89,7 +87,6 @@
               </form>
               {% endif %}
 
-            <!-- РАЗГЪВАЩА СЕ СЕКЦИЯ -->
               <details class="card-details">
                 <summary>Виж повече</summary>
                 <div class="card-extra">
@@ -126,7 +123,6 @@
     </div>
   </footer>
 
-  <!-- DELETE MODAL -->
   <div id="delete-modal" class="modal-overlay" style="display:none;">
     <div class="modal-box">
       <p>Сигурен ли си, че искаш да изтриеш профила си?</p>

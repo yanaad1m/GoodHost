@@ -54,7 +54,6 @@ def init_db():
 
     conn.commit()
 
-    # Миграции – добавяме нови колони ако вече съществува стара БД
     migrations = [
         ("hosts", "password_hash", "TEXT NOT NULL DEFAULT ''"),
         ("hosts", "photos", "TEXT DEFAULT '[]'"),
@@ -70,6 +69,6 @@ def init_db():
             cursor.execute(f"ALTER TABLE {table} ADD COLUMN {column} {col_type}")
             conn.commit()
         except Exception:
-            pass  # колоната вече съществува
+            pass
 
     conn.close()
