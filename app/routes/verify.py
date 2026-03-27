@@ -1,8 +1,21 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from app.verification import create_verification_session, get_verification_status
 from app.database import get_db
+import config
 
 verify_bp = Blueprint('verify', __name__)
+
+
+@verify_bp.route('/verify')
+def verify_page():
+    user_type = request.args.get('user_type', 'host')
+    user_id = request.args.get('user_id', '')
+    return render_template(
+        'verify.html',
+        stripe_publishable_key=config.STRIPE_PUBLISHABLE_KEY,
+        user_type=user_type,
+        user_id=user_id,
+    )
 
 
 @verify_bp.route('/verify/start', methods=['POST'])

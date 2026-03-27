@@ -211,11 +211,12 @@ def hostsregistration():
 
         db = get_db()
         try:
-            db.execute(
+            cursor = db.execute(
                 '''INSERT INTO hosts (name, age, bio, email, phone, location, max_guests, password_hash, photos)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                 (name, int(age), about, email, phone, location, max_guests, password_hash, json.dumps(photos))
             )
+            host_id = cursor.lastrowid
             db.commit()
         except Exception as e:
             db.close()
@@ -227,8 +228,7 @@ def hostsregistration():
         db.close()
 
         send_registration_email(email, name, 'host')
-        flash('Регистрацията беше успешна! Вече можеш да влезеш.', 'success')
-        return redirect(url_for('main.login'))
+        return redirect(url_for('verify.verify_page', user_type='host', user_id=host_id))
 
     return render_template('hostsregistration.html')
 
