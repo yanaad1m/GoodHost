@@ -14,6 +14,11 @@ import config
 app = Flask(__name__)
 app.secret_key = config.SECRET_KEY
 
+from app.routes.webhook import webhook_bp
+from app.routes.verify import verify_bp
+app.register_blueprint(webhook_bp)
+app.register_blueprint(verify_bp)
+
 UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'uploads')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -151,9 +156,9 @@ def hostsregistration():
             return render_template('hostsregistration.html')
         db.close()
 
+        host = get_db().execute('SELECT id FROM hosts WHERE email = ?', (email,)).fetchone()
         send_registration_email(email, name, 'host')
-        flash('Регистрацията беше успешна! Вече можеш да влезеш.', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('verify_page', user_type='host', user_id=host['id']))
 
     return render_template('hostsregistration.html')
 
@@ -193,9 +198,9 @@ def volunteer_registration():
             return render_template('volunteer_registration.html')
         db.close()
 
+        volunteer = get_db().execute('SELECT id FROM volunteers WHERE email = ?', (email,)).fetchone()
         send_registration_email(email, name, 'volunteer')
-        flash('Регистрацията беше успешна! Вече можеш да влезеш.', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('verify_page', user_type='volunteer', user_id=volunteer['id']))
 
     return render_template('volunteer_registration.html')
 
@@ -228,6 +233,18 @@ def delete_host(host_id):
     session.clear()
     flash('Профилът ти беше изтрит успешно.', 'success')
     return redirect(url_for('index'))
+
+
+@app.route('/verify-identity')
+def verify_page():
+    user_type = request.args.get('user_type')
+    user_id   = request.args.get('user_id')
+    return render_template(
+        'verify.html',
+        user_type=user_type,
+        user_id=user_id,
+        stripe_publishable_key=config.STRIPE_PUBLISHABLE_KEY
+    )
 
 
 @app.route('/rules')
