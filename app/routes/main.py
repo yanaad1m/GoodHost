@@ -1,7 +1,9 @@
 import json
 import os
+import secrets
 import time
 import smtplib
+from datetime import datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -27,7 +29,7 @@ def send_email(to_email, subject, body_html):
     try:
         msg = MIMEMultipart('alternative')
         msg['Subject'] = subject
-        msg['From'] = config.MAIL_USERNAME
+        msg['From'] = f"GoodHost <{config.MAIL_USERNAME}>"
         msg['To'] = to_email
         msg.attach(MIMEText(body_html, 'html', 'utf-8'))
         with smtplib.SMTP(config.MAIL_SERVER, config.MAIL_PORT) as server:
@@ -35,6 +37,7 @@ def send_email(to_email, subject, body_html):
             server.starttls()
             server.login(config.MAIL_USERNAME, config.MAIL_PASSWORD)
             server.sendmail(config.MAIL_USERNAME, to_email, msg.as_string())
+        print(f"[Email изпратен] До: {to_email} | Тема: {subject}")
     except Exception as e:
         print(f"[Email грешка] {e}")
 
@@ -42,30 +45,102 @@ def send_email(to_email, subject, body_html):
 def send_registration_email(to_email, name, user_type):
     role = "домакин" if user_type == "host" else "доброволец"
     body = f"""
-    <div style="font-family:Arial,sans-serif;max-width:500px;margin:auto;">
-      <h2 style="color:#2e7d32;">Добре дошъл в GoodHost, {name}!</h2>
-      <p>Регистрацията ти като <strong>{role}</strong> беше успешна.</p>
-      <a href="http://localhost:5000/login"
-         style="display:inline-block;padding:10px 20px;background:#2e7d32;color:#fff;
-                text-decoration:none;border-radius:5px;margin-top:10px;">
-        Влез в профила
-      </a>
-      <p style="margin-top:20px;color:#555;">Екипът на GoodHost</p>
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;background:#f9f9f9;border-radius:10px;overflow:hidden;">
+      <div style="background:#2e7d32;padding:30px;text-align:center;">
+        <h1 style="color:#fff;margin:0;font-size:28px;">GoodHost</h1>
+      </div>
+      <div style="padding:30px;background:#fff;">
+        <h2 style="color:#2e7d32;">Добре дошъл, {name}! 🎉</h2>
+        <p style="font-size:16px;color:#333;">
+          Регистрацията ти като <strong>{role}</strong> в платформата GoodHost беше успешна.
+        </p>
+        <p style="font-size:15px;color:#555;">
+          Вече можеш да влезеш в профила си и да се свържеш с общността ни.
+        </p>
+        <div style="text-align:center;margin:30px 0;">
+          <a href="http://localhost:5000/login"
+             style="display:inline-block;padding:14px 32px;background:#2e7d32;color:#fff;
+                    text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;">
+            Влез в профила
+          </a>
+        </div>
+        <p style="font-size:14px;color:#888;">
+          Ако не си се регистрирал ти, просто игнорирай този имейл.
+        </p>
+      </div>
+      <div style="background:#f0f0f0;padding:15px;text-align:center;">
+        <p style="font-size:13px;color:#777;margin:0;">© 2026 GoodHost. Всички права запазени.</p>
+      </div>
     </div>
     """
-    send_email(to_email, "Добре дошъл в GoodHost!", body)
+    send_email(to_email, "Добре дошъл в GoodHost! ✅", body)
 
 
 def send_login_email(to_email, name):
+    now = datetime.now().strftime("%d.%m.%Y в %H:%M")
     body = f"""
-    <div style="font-family:Arial,sans-serif;max-width:500px;margin:auto;">
-      <h3 style="color:#1565c0;">Нов вход в GoodHost</h3>
-      <p>Здравей, {name}! Влязохте в профила си.</p>
-      <p>Ако не сте вие, свържете се с нас незабавно.</p>
-      <p style="color:#555;">Екипът на GoodHost</p>
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;background:#f9f9f9;border-radius:10px;overflow:hidden;">
+      <div style="background:#1565c0;padding:30px;text-align:center;">
+        <h1 style="color:#fff;margin:0;font-size:28px;">GoodHost</h1>
+      </div>
+      <div style="padding:30px;background:#fff;">
+        <h2 style="color:#1565c0;">Нов вход в профила ти</h2>
+        <p style="font-size:16px;color:#333;">Здравей, <strong>{name}</strong>!</p>
+        <p style="font-size:15px;color:#555;">
+          Засечен е нов вход в твоя профил в GoodHost на <strong>{now}</strong>.
+        </p>
+        <p style="font-size:15px;color:#e53935;">
+          Ако не си бил ти, смени паролата си незабавно.
+        </p>
+        <div style="text-align:center;margin:25px 0;">
+          <a href="http://localhost:5000/forgot-password"
+             style="display:inline-block;padding:12px 28px;background:#e53935;color:#fff;
+                    text-decoration:none;border-radius:6px;font-size:15px;font-weight:bold;">
+            Смени паролата
+          </a>
+        </div>
+      </div>
+      <div style="background:#f0f0f0;padding:15px;text-align:center;">
+        <p style="font-size:13px;color:#777;margin:0;">© 2026 GoodHost. Всички права запазени.</p>
+      </div>
     </div>
     """
-    send_email(to_email, "Нов вход в профила ти – GoodHost", body)
+    send_email(to_email, "Нов вход в профила ти – GoodHost 🔐", body)
+
+
+def send_forgot_password_email(to_email, name, reset_link):
+    body = f"""
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto;background:#f9f9f9;border-radius:10px;overflow:hidden;">
+      <div style="background:#2e7d32;padding:30px;text-align:center;">
+        <h1 style="color:#fff;margin:0;font-size:28px;">GoodHost</h1>
+      </div>
+      <div style="padding:30px;background:#fff;">
+        <h2 style="color:#2e7d32;">Смяна на парола</h2>
+        <p style="font-size:16px;color:#333;">Здравей, <strong>{name}</strong>!</p>
+        <p style="font-size:15px;color:#555;">
+          Получихме заявка за смяна на паролата ти в GoodHost.
+          Кликни на бутона по-долу за да зададеш нова парола.
+        </p>
+        <p style="font-size:14px;color:#e53935;">
+          Линкът е валиден <strong>1 час</strong>. Ако не си поискал смяна на парола, игнорирай този имейл.
+        </p>
+        <div style="text-align:center;margin:30px 0;">
+          <a href="{reset_link}"
+             style="display:inline-block;padding:14px 32px;background:#2e7d32;color:#fff;
+                    text-decoration:none;border-radius:6px;font-size:16px;font-weight:bold;">
+            Смени паролата
+          </a>
+        </div>
+        <p style="font-size:12px;color:#aaa;word-break:break-all;">
+          Или копирай линка: {reset_link}
+        </p>
+      </div>
+      <div style="background:#f0f0f0;padding:15px;text-align:center;">
+        <p style="font-size:13px;color:#777;margin:0;">© 2026 GoodHost. Всички права запазени.</p>
+      </div>
+    </div>
+    """
+    send_email(to_email, "Смяна на парола – GoodHost 🔑", body)
 
 
 @main_bp.context_processor
@@ -119,7 +194,7 @@ def hostsregistration():
             return render_template('hostsregistration.html')
 
         location      = f"{city}, {region}" if region else city
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
         upload_folder = os.path.join(current_app.root_path, 'static', 'uploads')
         os.makedirs(upload_folder, exist_ok=True)
@@ -175,7 +250,7 @@ def volunteer_registration():
             flash('Паролата трябва да е поне 6 символа.', 'error')
             return render_template('volunteer_registration.html')
 
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
         db = get_db()
         try:
@@ -282,3 +357,76 @@ def profile():
         user = db.execute('SELECT * FROM volunteers WHERE id = ?', (session['user_id'],)).fetchone()
     db.close()
     return render_template('profile.html', user=user)
+
+
+@main_bp.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        db = get_db()
+        user = db.execute('SELECT *, "host" as utype FROM hosts WHERE email = ?', (email,)).fetchone()
+        user_type = 'host'
+        if not user:
+            user = db.execute('SELECT *, "volunteer" as utype FROM volunteers WHERE email = ?', (email,)).fetchone()
+            user_type = 'volunteer'
+
+        if user:
+            token = secrets.token_urlsafe(32)
+            expires_at = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+            db.execute(
+                'INSERT INTO password_reset_tokens (email, user_type, token, expires_at) VALUES (?, ?, ?, ?)',
+                (email, user_type, token, expires_at)
+            )
+            db.commit()
+            reset_link = url_for('main.reset_password', token=token, _external=True)
+            send_forgot_password_email(email, user['name'], reset_link)
+
+        db.close()
+        # Показваме същото съобщение независимо дали имейлът съществува (сигурност)
+        flash('Ако имейлът е регистриран, ще получиш линк за смяна на парола.', 'success')
+        return redirect(url_for('main.forgot_password'))
+
+    return render_template('forgot_password.html')
+
+
+@main_bp.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    db = get_db()
+    record = db.execute(
+        'SELECT * FROM password_reset_tokens WHERE token = ? AND used = 0',
+        (token,)
+    ).fetchone()
+
+    if not record:
+        db.close()
+        flash('Линкът е невалиден или вече е използван.', 'error')
+        return redirect(url_for('main.forgot_password'))
+
+    if datetime.strptime(record['expires_at'], '%Y-%m-%d %H:%M:%S') < datetime.now():
+        db.close()
+        flash('Линкът е изтекъл. Поискай нов.', 'error')
+        return redirect(url_for('main.forgot_password'))
+
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        password_confirm = request.form.get('password_confirm', '')
+
+        if password != password_confirm:
+            flash('Паролите не съвпадат.', 'error')
+            return render_template('reset_password.html', token=token)
+        if len(password) < 6:
+            flash('Паролата трябва да е поне 6 символа.', 'error')
+            return render_template('reset_password.html', token=token)
+
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
+        table = 'hosts' if record['user_type'] == 'host' else 'volunteers'
+        db.execute(f'UPDATE {table} SET password_hash = ? WHERE email = ?',
+                   (password_hash, record['email']))
+        db.execute('UPDATE password_reset_tokens SET used = 1 WHERE token = ?', (token,))
+        db.commit()
+        db.close()
+        flash('Паролата беше сменена успешно! Можеш да влезеш.', 'success')
+        return redirect(url_for('main.login'))
+
+    db.close()
+    return render_template('reset_password.html', token=token)

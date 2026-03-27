@@ -127,7 +127,7 @@ def hostsregistration():
             return render_template('hostsregistration.html')
 
         location      = f"{city}, {region}" if region else city
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
         photos = []
         if 'photos' in request.files:
@@ -180,7 +180,7 @@ def volunteer_registration():
             flash('Паролата трябва да е поне 6 символа.', 'error')
             return render_template('volunteer_registration.html')
 
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
         db = get_db()
         try:
