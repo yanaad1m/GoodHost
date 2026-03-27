@@ -28,7 +28,7 @@ header {
 
 .logo span {
   color: var(--cream);
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.0625em;
 }

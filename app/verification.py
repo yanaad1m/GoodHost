@@ -1,8 +1,9 @@
 import stripe
-from config import STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET
+import os
+from dotenv import load_dotenv
 from app.database import get_db
 
-stripe.api_key = STRIPE_SECRET_KEY
+load_dotenv()
 
 
 def create_verification_session(user_type, user_id):
@@ -11,6 +12,7 @@ def create_verification_session(user_type, user_id):
     user_type: 'host' или 'volunteer'
     Връща client_secret за фронтенда.
     """
+    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
     session = stripe.identity.VerificationSession.create(
         type='document',
         metadata={
@@ -42,9 +44,11 @@ def handle_webhook(payload, sig_header):
     Обработва Stripe webhook събитие.
     При успешна верификация update-ва id_verified = 1 в БД.
     """
+    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
+    webhook_secret = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
     try:
         event = stripe.Webhook.construct_event(
-            payload, sig_header, STRIPE_WEBHOOK_SECRET
+            payload, sig_header, webhook_secret
         )
     except stripe.error.SignatureVerificationError:
         return False
@@ -88,6 +92,7 @@ def get_verification_status(user_type, user_id):
     Връща текущия статус на верификацията от Stripe.
     Статуси: requires_input, processing, verified, canceled
     """
+    stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
     table = 'hosts' if user_type == 'host' else 'volunteers'
     conn = get_db()
     row = conn.execute(
